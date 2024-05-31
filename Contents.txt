@@ -1,0 +1,16 @@
+Data Cleaning: the python files containing the code used to clean the images
+
+Dataset Visualization: the python files used to construct the data visualization graphs/histograms
+File(s):main_dv.py, ClassDistribution.py, data_cleaning.py
+
+Dataset: A text file detailing the information of each dataset we sourced from
+File(s):Datasets.txt
+
+Archive: A zip file containing an archive of 100 sample images (25 of each class) for our complete dataset
+Files(S): Archive
+
+Report: The report containing our mythology, processes, findings, analysis and procedures for project part1
+File(s):Report
+
+Originality Form: Documents that confirm all out work is our own and all references and clearly defined
+File(s):Originalityfrom_Alessandro.pdf, Originalityfrom_Hena.pdf, Originalityfrom_Yason.pdf

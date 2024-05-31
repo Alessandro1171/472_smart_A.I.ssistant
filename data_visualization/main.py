@@ -6,7 +6,7 @@ import glob
 import random
 from PIL import Image
 
-from ClassDistribution import class_distribution, pixel_intensity_pre_class
+from ClassDistribution import class_distribution, pixel_intensity_pre_class, pixel_intensity_pre_class_v2
 from SampleImages import SampleImages
 
 # Press the green button in the gutter to run the script.
@@ -18,7 +18,8 @@ if __name__ == '__main__':
     # Class distribution
     class_distribution(paths_train, paths_test, ["Angry", "Focused", "Happy", "Neutral"])
     # Pixel distribution
-    pixel_intensity_pre_class(paths_train, paths_test, ["Angry", "Focused", "Happy", "Neutral"])
+
+    pixel_intensity_pre_class_v2(paths_train, paths_test, ["Angry", "Focused", "Happy", "Neutral"], ["red", "blue", "green", "gray"])
     # Sample images
     # Angry
     sample_images = SampleImages(paths_train[0])
