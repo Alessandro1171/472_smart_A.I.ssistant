@@ -1,4 +1,32 @@
 # 472_smart_A.I.ssistant
+Group Information:
+Yason Bedoshvili – Data Specialist
+40058829
+ 
+Alessandro Dare – Training Specialist
+40208154
+ 
+Héna Ricucci – Evaluation Specialist
+40236544
+
+Contents:
+Data Cleaning: the python files containing the code used to clean the images
+File(s)
+
+Dataset Visualization: the python files used to construct the data visualization graphs/histograms
+File(s):main_dv.py, ClassDistribution.py, data_cleaning.py
+
+Dataset: A text file detailing the information of each dataset we sourced from
+File(s):Datasets.txt
+
+Archive: A zip file containing an archive of 100 sample images (25 of each class) for our complete dataset
+Files(S): image_archive
+
+Report: The report containing our mythology, processes, findings, analysis and procedures for project part1
+File(s):SmartClass A.I.ssistant
+
+Originality Form: Documents that confirm all out work is our own and all references and clearly defined
+File(s):Originality_form_alessandro_dare.pdf, Originality_form_Hena_Ricucci.pdf, Expectations-of-Originality-Yason-Bedoshvili.pdf
 
 Data Visualization Instructions:
 1. Make sure you have the following dependencies installed:
