@@ -29,60 +29,60 @@ Originality Form: Documents that confirm all out work is our own and all referen
 File(s):Originality_form_alessandro_dare.pdf, Originality_form_Hena_Ricucci.pdf, Expectations-of-Originality-Yason-Bedoshvili.pdf
 
 Data Cleaning Instructions:
-The paths for the directories are our local path, please make sure that you put a correct paths for the folders
+The paths for the directories are our local paths, please make sure that you replace them with the paths where the folders are located.
 
 First file is preprocess_images.py
 1. Make sure you have the following dependencies installed:
-os
+os, 
 PIL
 
-2. Make sure that directories have a correct paths
-3. After execution of the code, please, put images in the different folders according to the emptions on the face
+2. Make sure that directories have the correct paths
+3. After execution of the code, please, put images in the different folders according to the emotions on the face
 
 Second file is CreateTrainTest.py
 1. Make sure you have the following dependencies installed:
-os
-shutil
+os, 
+shutil, 
 random
 
 2. Puth the right paths in the code for angry, happy, and neutral
 
 Third file is DatasetLoading.py
 1. Make sure you have the following dependencies installed:
-os
-PIL
-torch
-numphy
+os, 
+PIL, 
+torch, 
+numphy, 
 torchvision
 
 2. Puth the right paths for all emotions of test and train
 
 Fourth file is Preprocessing.py
 1. Make sure you have the following dependencies installed:
-os
-PIL
+os, 
+PIL, 
 hashlib
 
-2. Puth the right paths for all emotions of test and train
+2. Puth the right paths for all emotions of test and train folders
 
 
 Data Visualization Instructions:
 1. Make sure you have the following dependencies installed:
-matplotlib
-cv2 (opencv-python)
-numpy
-tensorflow
-glob
-random
+matplotlib, 
+cv2 (opencv-python), 
+numpy, 
+tensorflow, 
+glob, 
+random, 
 PIL
  
-2.Make sure that the files: ClassDistribution.py, main_dv.py, SampleImages.py are in the same folder/driectorty.
+2. Make sure that the files: ClassDistribution.py, main_dv.py, SampleImages.py are in the same folder/driectorty.
 
-3.In main.py file there are two variables: paths_train and paths_test
+3. In main.py file there are two variables: paths_train and paths_test
 These contain the paths to the directories that contain the train images for each class and the test images for each class respectively.
 Replace the current paths with your local paths.
 
-4.Run the main_dv.py file
+4. Run the main_dv.py file
 This will cause the class distribution graph, the pixel distribution graph, and the Sample Grid, for each class in that order.
 Each visualization section has its own figure, just X out of the current figure to move to the next one.
 Note: the pixel distribution graph could take a long time to load (over 5 min) so don't try to restart the program if it seems to be taking a while.
