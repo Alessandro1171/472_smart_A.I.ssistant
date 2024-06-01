@@ -28,6 +28,44 @@ File(s):SmartClass A.I.ssistant
 Originality Form: Documents that confirm all out work is our own and all references and clearly defined
 File(s):Originality_form_alessandro_dare.pdf, Originality_form_Hena_Ricucci.pdf, Expectations-of-Originality-Yason-Bedoshvili.pdf
 
+Data Cleaning Instructions:
+The paths for the directories are our local path, please make sure that you put a correct paths for the folders
+
+First file is preprocess_images.py
+1. Make sure you have the following dependencies installed:
+os
+PIL
+
+2. Make sure that directories have a correct paths
+3. After execution of the code, please, put images in the different folders according to the emptions on the face
+
+Second file is CreateTrainTest.py
+1. Make sure you have the following dependencies installed:
+os
+shutil
+random
+
+2. Puth the right paths in the code for angry, happy, and neutral
+
+Third file is DatasetLoading.py
+1. Make sure you have the following dependencies installed:
+os
+PIL
+torch
+numphy
+torchvision
+
+2. Puth the right paths for all emotions of test and train
+
+Fourth file is Preprocessing.py
+1. Make sure you have the following dependencies installed:
+os
+PIL
+hashlib
+
+2. Puth the right paths for all emotions of test and train
+
+
 Data Visualization Instructions:
 1. Make sure you have the following dependencies installed:
 matplotlib
