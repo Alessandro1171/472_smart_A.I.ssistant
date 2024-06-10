@@ -1,0 +1,19 @@
+Datasets:
+Datasets total 1
+Dataset1:
+Name: FER-2013
+Source: https://www.kaggle.com/datasets/msambare/fer2013
+License:Database Contents License (DbCL) v1.0
+Number of images used:4375
+Number of Images total:7178
+Modification: Resizing from 48x48 to 128x128 pixels, gray scaling (removing color), removing duplicates/redundant images, converting to png format
+
+Images taken by Alessandro: 20240526_203744.png 20240526_203739.png 20240526_203754.png 20240526_203832.png
+
+Images taken by Yason: 20240526_205524.png 20240526_205544.png 20240526_205735.png 20240526_205647.png
+
+Images taken by Hena: IMG_0329.png IMG_0316.png IMG_0322.png IMG_0334.png
+
+Modifiactions for personal images:Resizing to 128x128 pixels, gray scaling (removing color), removing duplicates/redundant images, converting to png format
+
+
