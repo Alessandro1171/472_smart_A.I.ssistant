@@ -35,10 +35,10 @@ def split_dataset(base_paths, train_ratio=0.7, val_ratio=0.15, test_ratio=0.15):
 
 # Base paths for your datasets
 base_paths = {
-    "angry": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\AI_Part2\angry",
-    "happy": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\AI_Part2\happy",
-    "neutral": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\AI_Part2\neutral",
-    "focused": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\AI_Part2\focused"
+    "angry": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\Part_2_try_1\angry",
+    "happy": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\Part_2_try_1\happy",
+    "neutral": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\Part_2_try_1\neutral",
+    "focused": r"C:\Users\yason\OneDrive\Documents\summer_2024\COMP_472\Part_2_try_1\focused"
 }
 
 split_dataset(base_paths)
