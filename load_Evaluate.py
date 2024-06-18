@@ -1,6 +1,6 @@
 import torch
 from torch import optim, nn
-from trained_ai import CNN_Image_Scanner_V3, Pclass
+from trained_ai import CNN_Image_Scanner_V1, Pclass
 from torch.utils.data import DataLoader
 import glob
 from torch.utils.data.dataset import Dataset
@@ -14,6 +14,9 @@ import seaborn as sn
 import pandas as pd
 from sklearn.metrics import precision_score, recall_score, f1_score
 from sklearn.metrics import classification_report
+from CNN_Image_Scanner_V1 import CNN_Image_Scanner_V1
+from CNN_Image_Scanner_V2 import CNN_Image_Scanner_V2
+from CNN_Image_Scanner_V3 import CNN_Image_Scanner_V3
 import seaborn as sns
 
 
@@ -202,7 +205,7 @@ def display_values(all_preds, all_labels, BestACC):
     print(report)
 
 
-model = CNN_Image_Scanner_V3().cuda()  # Just to ensure that model is on GPU
+model = CNN_Image_Scanner_V1().cuda()  # Just to ensure that model is on GPU
 model = nn.DataParallel(model)
 model.load_state_dict(torch.load("best_model.pth"))
 model.eval()  # Setting to evaluation mode
