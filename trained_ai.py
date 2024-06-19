@@ -1,29 +1,31 @@
 import PIL.Image as Image
-import numpy as np
+#import numpy as np
 import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.data as td
-import torchvision.datasets as datasets
-import torchvision.transforms as transforms
+#import torchvision.datasets as datasets
+#import torchvision.transforms as transforms
 from torch import optim, nn
 from torch.nn.functional import one_hot
 from torch.utils.data import DataLoader, TensorDataset, random_split
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import Dataset
 from torchvision import transforms
-import CNN_Image_Scanner_V1
-import CNN_Image_Scanner_V2
-import CNN_Image_Scanner_V3
+from CNN_Image_Scanner_V1 import CNN_Image_Scanner_V1
+from CNN_Image_Scanner_V2 import CNN_Image_Scanner_V2
+from CNN_Image_Scanner_V3 import CNN_Image_Scanner_V3
+
 
 class Pclass(Dataset):
     """
     Gets the separate datasets for the different faces and have them corresponds to their appropriate labels
     """
+
     def __init__(self, mode):
 
-        path = 'C:/Users/yason/OneDrive/Documents/summer_2024/COMP_472/Part_2_try_1/'
+        path = 'C:/Users/aless/Documents/472/472_smart_A.I.ssistant/expermental_dataset/'
         self.allaimges = []
         self.clsLabel = []
         for idx, cls in enumerate(['angry', 'focused', 'happy', 'neutral']):
@@ -48,6 +50,7 @@ class Pclass(Dataset):
         Cls = self.clsLabel[idx]
 
         return Im, Cls
+
 
 def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_set_loader: DataLoader, model):
     """
@@ -75,13 +78,13 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
         # train the model
         for images, labels in train_set_loader:
             optimizer.zero_grad()
-            output = model(images.cuda())
-            loss = criterion(output, labels.cuda())
+            output = model(images)
+            loss = criterion(output, labels)
             loss.backward()
             optimizer.step()
-            running_loss += loss.item() * images.cuda().size(0)
+            running_loss += loss.item() * images.size(0)
             predictedClass, preds = torch.max(output, 1)
-            rightPred += (preds == labels.cuda()).sum().item()
+            rightPred += (preds == labels).sum().item()
             totalPred += labels.size(0)
         train_loss = running_loss / len(train_set_loader.dataset)
         train_accuracy = rightPred / totalPred
@@ -95,17 +98,17 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
         # evaluate the model
         with torch.no_grad():
             for images, labels in val_set_loader:
-                output = model(images.cuda())
-                val_loss = criterion(output, labels.cuda())
-                val_running_loss += val_loss.item() * images.cuda().size(0)
+                output = model(images)
+                val_loss = criterion(output, labels)
+                val_running_loss += val_loss.item() * images.size(0)
                 predictedClass, preds = torch.max(output, 1)
-                val_correct += (preds == labels.cuda()).sum().item()
+                val_correct += (preds == labels).sum().item()
                 val_total += labels.size(0)
 
             ACC = val_correct / val_total
             print('val Accuracy is=', ACC * 100)
-            if ACC > BestACC:
-                BestACC = ACC
+            if ACC > best_acc:
+                best_acc = ACC
 
         val_loss = val_running_loss / len(val_set_loader.dataset)
         val_accuracy = val_correct / val_total
@@ -132,17 +135,19 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
     # final evaluation on the test set
     with torch.no_grad():
         for images, labels in test_set_loader:
-            output = model(images.cuda())
-            test_loss = criterion(output, labels.cuda())
-            test_running_loss += test_loss.item() * images.cuda().size(0)
+            output = model(images)
+            test_loss = criterion(output, labels)
+            test_running_loss += test_loss.item() * images.size(0)
             predictedClass, preds = torch.max(output, 1)
-            test_correct += (preds == labels.cuda()).sum().item()
+            test_correct += (preds == labels).sum().item()
             test_total += labels.size(0)
+    avg_test_loss= test_running_loss / len(test_set_loader)
+    ACC = test_correct / test_total
+    print(f'Test loss is={avg_test_loss}')
+    print('Test Accuracy is=', ACC * 100)
+    return ACC, avg_test_loss
 
-        ACC = test_correct / test_total
-        print('Test Accuracy is=', ACC * 100)
-
-
+"""
 if __name__ == '__main__':
     # get the train, test and validation sets
     train_set = Pclass('train')
@@ -157,5 +162,4 @@ if __name__ == '__main__':
     model = nn.DataParallel(model)
     model.to(device)
     train_model(train_loader, val_loader, test_loader, model)
-
-
+"""
