@@ -5,16 +5,54 @@ from torch.utils.data import Dataset, Subset
 from torch.utils.data.dataset import Dataset
 from torch.utils.data import random_split
 from trained_ai import Pclass, train_model
-
+import os
 from CNN_Image_Scanner_V1 import CNN_Image_Scanner_V1
+from torchvision import transforms
+import PIL.Image as Image
 
-if __name__ == '__main__':
-    face_images_set = Pclass('train')
+
+class Pclass_Categoires(Dataset):
+    """
+    Gets the separate datasets for the different faces and have them corresponds to their appropriate labels
+    """
+
+    def __init__(self, category, sub_category):
+
+        path = 'C:/Users/aless/Documents/472/472_smart_A.I.ssistant/expermental_dataset/'
+        self.allaimges = []
+        self.clsLabel = []
+        for idx, cls in enumerate(['angry', 'focused', 'happy', 'neutral']):
+            Cpath = os.path.join(path, category)
+            Cpath = os.path.join(Cpath, sub_category)
+            Cpath = os.path.join(Cpath, cls)
+            F = os.listdir(Cpath)
+
+            for im in F:
+                self.allaimges.append(os.path.join(Cpath, im))
+                self.clsLabel.append(idx)
+        self.mytransform = transforms.Compose([transforms.Resize(size=(224, 224)),
+                                               transforms.ToTensor(),
+                                               ])
+
+    def __len__(self):
+        return len(self.allaimges)
+
+    def __getitem__(self, idx):
+
+        Im = self.mytransform(Image.open(self.allaimges[idx]))
+        Cls = self.clsLabel[idx]
+
+        return Im, Cls
+
+
+def kfold_validation(data_set_category, data_set_sub_category):
+    face_images_set = Pclass_Categoires(data_set_category, data_set_sub_category)
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     results_loss = {}
     fold_performance_loss = []
     results_accuracy = {}
     fold_performance_accuracy = []
+
     for fold, (train_idx, test_idx) in enumerate(kf.split(face_images_set)):
         train_set = Subset(face_images_set, train_idx)
         test_set = Subset(face_images_set, test_idx)
@@ -43,3 +81,11 @@ if __name__ == '__main__':
 
     print(f'Results: {results_loss}')
     print(f'Average Validation Loss: {np.mean(fold_performance_loss)}')
+
+
+if __name__ == '__main__':
+    categories = {"age": ["old", "adult", "young"], "gender": ["men", "women"]}
+    for category in categories.keys():
+        print(f"Going over category:{category}")
+        for sub_category in categories[category]:
+            kfold_validation(category, sub_category)
