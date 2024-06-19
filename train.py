@@ -1,3 +1,6 @@
+# This file is deprecated and no longer in use.
+# Please refer to the newer files for the latest implementation.
+
 import torch
 import torch.optim as optim
 from torch.utils.data import DataLoader, Dataset
