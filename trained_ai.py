@@ -1,3 +1,5 @@
+# The main file
+
 import PIL.Image as Image
 import numpy as np
 import os
