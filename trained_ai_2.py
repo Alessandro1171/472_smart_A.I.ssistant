@@ -50,7 +50,7 @@ def train_model(train_loader, val_loader, test_loader, model, device):
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
-    epochs = 2
+    epochs = 15
     patience = 5
     best_val_loss = float('inf')
     epochs_no_improve = 0
