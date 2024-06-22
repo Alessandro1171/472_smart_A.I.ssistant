@@ -78,14 +78,14 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
         # train the model
         for images, labels in train_set_loader:
             optimizer.zero_grad()
-            output = model(images)
-            loss = criterion(output, labels)
+            output = model(images.cuda())
+            loss = criterion(output, labels.cuda())
             loss.backward()
             optimizer.step()
-            running_loss += loss.item() * images.size(0)
+            running_loss += loss.item() * images.cuda().size(0)
             predictedClass, preds = torch.max(output, 1)
-            rightPred += (preds == labels).sum().item()
-            totalPred += labels.size(0)
+            rightPred += (preds == labels.cuda()).sum().item()
+            totalPred += labels.cuda().size(0)
         train_loss = running_loss / len(train_set_loader.dataset)
         train_accuracy = rightPred / totalPred
         print(f"train_accuracy:{train_accuracy}")
@@ -98,11 +98,11 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
         # evaluate the model
         with torch.no_grad():
             for images, labels in val_set_loader:
-                output = model(images)
-                val_loss = criterion(output, labels)
-                val_running_loss += val_loss.item() * images.size(0)
+                output = model(images.cuda())
+                val_loss = criterion(output, labels.cuda())
+                val_running_loss += val_loss.item() * images.cuda().size(0)
                 predictedClass, preds = torch.max(output, 1)
-                val_correct += (preds == labels).sum().item()
+                val_correct += (preds == labels.cuda()).sum().item()
                 val_total += labels.size(0)
 
             ACC = val_correct / val_total
@@ -135,11 +135,12 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
     # final evaluation on the test set
     with torch.no_grad():
         for images, labels in test_set_loader:
-            output = model(images)
-            test_loss = criterion(output, labels)
-            test_running_loss += test_loss.item() * images.size(0)
+            output = model(images.cuda())
+            test_loss = criterion(output, labels.cuda())
+            test_running_loss += test_loss.item() * images.cuda().size(0)
             predictedClass, preds = torch.max(output, 1)
-            test_correct += (preds == labels).sum().item()
+
+            test_correct += (preds == labels.cuda()).sum().item()
             test_total += labels.size(0)
     avg_test_loss= test_running_loss / len(test_set_loader)
     ACC = test_correct / test_total
@@ -147,19 +148,3 @@ def train_model(train_set_loader: DataLoader, val_set_loader: DataLoader, test_s
     print('Test Accuracy is=', ACC * 100)
     return ACC, avg_test_loss
 
-"""
-if __name__ == '__main__':
-    # get the train, test and validation sets
-    train_set = Pclass('train')
-    test_set = Pclass('test')
-    val_set = Pclass('val')
-    train_loader = DataLoader(train_set, batch_size=16, shuffle=True, num_workers=0, drop_last=True)
-    val_loader = DataLoader(val_set, batch_size=16, shuffle=False, num_workers=0)
-    test_loader = DataLoader(test_set, batch_size=16, shuffle=False, num_workers=0)
-    # create model
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = CNN_Image_Scanner_V2()
-    model = nn.DataParallel(model)
-    model.to(device)
-    train_model(train_loader, val_loader, test_loader, model)
-"""

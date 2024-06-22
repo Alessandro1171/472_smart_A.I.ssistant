@@ -5,11 +5,9 @@ import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 from torch import optim, nn
 
-
 class CNN_Image_Scanner_V1(nn.Module):
     """AI that trains itself on facial images and their labeled classes to be able to predict the expression of an
     individual and whether they are feeling happy, angry, focused or neutral"""
-
     def __init__(self):
         super().__init__()
 

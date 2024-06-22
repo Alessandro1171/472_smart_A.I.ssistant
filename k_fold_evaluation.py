@@ -9,7 +9,8 @@ import os
 from CNN_Image_Scanner_V1 import CNN_Image_Scanner_V1
 from torchvision import transforms
 import PIL.Image as Image
-
+import torch
+from torch import optim, nn
 
 class Pclass_Categoires(Dataset):
     """
@@ -45,8 +46,7 @@ class Pclass_Categoires(Dataset):
         return Im, Cls
 
 
-def kfold_validation(data_set_category, data_set_sub_category):
-    face_images_set = Pclass_Categoires(data_set_category, data_set_sub_category)
+def kfold_validation(face_images_set):
     kf = KFold(n_splits=10, shuffle=True, random_state=42)
     results_loss = {}
     fold_performance_loss = []
@@ -66,6 +66,10 @@ def kfold_validation(data_set_category, data_set_sub_category):
         train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
         val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
         test_loader = DataLoader(test_set, batch_size=32, shuffle=False)
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        model = CNN_Image_Scanner_V1()
+        model = nn.DataParallel(model)
+        model.to(device)
         accuracy, avg_test_loss = train_model(train_loader, val_loader, test_loader, model)
 
         results_loss[fold] = avg_test_loss
@@ -85,7 +89,11 @@ def kfold_validation(data_set_category, data_set_sub_category):
 
 if __name__ == '__main__':
     categories = {"age": ["old", "adult", "young"], "gender": ["men", "women"]}
+    print(f"Going over data set:")
+    kfold_validation(Pclass('train'))
     for category in categories.keys():
         print(f"Going over category:{category}")
         for sub_category in categories[category]:
-            kfold_validation(category, sub_category)
+            print(f"Going over sub category:{sub_category}")
+            images_set = Pclass_Categoires(category, sub_category)
+            kfold_validation(images_set)
